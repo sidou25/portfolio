@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#05070d">
+  <title>SIDOU — Portfolio</title>
+  <meta name="description" content="Portfolio de Sidou, étudiant en informatique, Full-stack Developer passionné de cybersécurité.">
+  <link rel="icon" href="hacker.jpg">
+
+  <!-- applique tout de suite la langue et le thème gardés en mémoire (évite un "flash") -->
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var theme = null, lang = null;
+      try { theme = localStorage.getItem("theme"); lang = localStorage.getItem("lang"); } catch (e) {}
+      if (theme === "light" || theme === "dark") root.dataset.theme = theme;
+      if (!lang) {
+        var nav = (navigator.language || "fr").slice(0, 2);
+        lang = nav === "ar" || nav === "en" ? nav : "fr";
+      }
+      root.lang = lang;
+      root.dir = lang === "ar" ? "rtl" : "ltr";
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&family=JetBrains+Mono:wght@400;600&family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="is-loading">
+
+  <a href="#about" class="skip-link" data-i18n="a11y.skip">Aller au contenu</a>
+
+  <!-- barre de progression de lecture -->
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <!-- ===== INTRO : SIDOU s'assemble lettre par lettre ===== -->
+  <div class="intro" id="intro" aria-hidden="true">
+    <div class="intro-name" id="introName" dir="ltr">
+      <span>S</span><span>I</span><span>D</span><span>O</span><span>U</span><span class="intro-dot">.</span>
+    </div>
+    <p class="intro-skip" data-i18n="intro.skip">Cliquer pour passer</p>
+  </div>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="nav" id="nav">
+    <a href="#accueil" class="nav-logo" dir="ltr">SIDOU<span>.</span></a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#accueil" class="active" data-i18n="nav.home">Accueil</a>
+      <a href="#about" data-i18n="nav.about">À propos</a>
+      <a href="#skills" data-i18n="nav.skills">Compétences</a>
+      <a href="#projects" data-i18n="nav.projects">Projets</a>
+      <a href="#contact" class="nav-cta" data-i18n="nav.contact">Contact</a>
+    </nav>
+
+    <div class="nav-tools">
+      <!-- choix de la langue -->
+      <div class="lang-switch" role="group" aria-label="Langue / Language / اللغة">
+        <button type="button" data-lang="fr" lang="fr">FR</button>
+        <button type="button" data-lang="en" lang="en">EN</button>
+        <button type="button" data-lang="ar" lang="ar">ع</button>
+      </div>
+
+      <!-- bouton jour / nuit -->
+      <button type="button" class="icon-btn theme-btn" id="themeBtn" data-i18n-aria="nav.theme" aria-label="Changer de thème (jour / nuit)">
+        <!-- soleil : visible la nuit -->
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.5"/>
+          <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/>
+        </svg>
+        <!-- lune : visible le jour -->
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/>
+        </svg>
+      </button>
+
+      <button type="button" class="icon-btn nav-burger" id="burger" data-i18n-aria="nav.menu" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===== HERO : particules + PORTFOLIO ===== -->
+    <section class="hero" id="accueil">
+      <canvas id="particles" aria-hidden="true"></canvas>
+      <div class="hero-grid" aria-hidden="true"></div>
+
+      <div class="hero-content">
+        <p class="hero-tag mono"><bdi>&gt; whoami<span class="caret">_</span></bdi></p>
+        <h1 class="hero-title" dir="ltr">PORTFOLIO</h1>
+        <div class="hero-bottom">
+          <p class="hero-role" data-i18n="hero.role"><strong>Full-stack</strong> <em>Developer</em></p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">
+              <span data-i18n="hero.projects">Voir mes projets</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="#contact" class="btn btn-ghost" data-i18n="hero.cta">Me contacter</a>
+          </div>
+        </div>
+      </div>
+
+      <a href="#about" class="scroll-hint" data-i18n-aria="a11y.down" aria-label="Descendre">
+        <span></span>
+      </a>
+    </section>
+
+    <!-- ===== CHIFFRES CLÉS ===== -->
+    <section class="stats" aria-label="Chiffres clés">
+      <div class="container stats-grid">
+        <div class="stat reveal">
+          <strong class="stat-num"><span class="count" data-to="4">4</span></strong>
+          <span data-i18n="stats.projects">Projets sur GitHub</span>
+        </div>
+        <div class="stat stat-award reveal">
+          <strong class="stat-num"><span aria-hidden="true">🥈</span> <span data-i18n="stats.place">2ᵉ</span></strong>
+          <span data-i18n="stats.hackathon">Place au hackathon</span>
+        </div>
+        <div class="stat reveal">
+          <strong class="stat-num"><span class="count" data-to="14">14</span></strong>
+          <span data-i18n="stats.tech">Technologies</span>
+        </div>
+        <div class="stat reveal">
+          <strong class="stat-num" dir="ltr">L3</strong>
+          <span data-i18n="stats.level">Informatique · Alger 1</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== À PROPOS ===== -->
+    <section class="section" id="about">
+      <div class="container about">
+        <div class="section-head reveal">
+          <span class="section-num mono">01</span>
+          <h2 data-i18n="about.title">À propos</h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-text reveal">
+            <p class="lead" data-i18n="about.lead"></p>
+            <p data-i18n="about.goal"></p>
+            <ul class="about-points">
+              <li data-i18n="about.p1"></li>
+              <li data-i18n="about.p2"></li>
+              <li data-i18n="about.p3"></li>
+            </ul>
+          </div>
+
+          <div class="terminal reveal">
+            <div class="terminal-bar" dir="ltr">
+              <i></i><i></i><i></i>
+              <span class="mono">sidou@alger1:~</span>
+            </div>
+            <pre class="terminal-body mono" id="terminal"></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== COMPÉTENCES ===== -->
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-num mono">02</span>
+          <h2 data-i18n="skills.title">Compétences</h2>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill-card reveal">
+            <h3 class="mono" data-i18n="skills.front">// Front-end</h3>
+            <ul dir="ltr">
+              <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/html5/html5-original.svg" alt="" width="26" height="26" loading="lazy">HTML</li>
+              <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/css3/css3-original.svg" alt="" width="26" height="26" loading="lazy">CSS</li>
+              <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/javascript/javascript-original.svg" alt="" width="26" height="26" loading="lazy">JavaScript</li>
+              <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/jquery/jquery-original.svg" alt="" width="26" height="26" loading="lazy">jQuery</li>
+              <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/react/react-original.svg" alt="" width="26" height="26" loading="lazy">React</li>
+            </ul>
+          </div>
+          <div class="skill-card reveal">
+            <h3 class="mono" data-i18n="skills.back">// Back-end</h3>
+            <ul dir="ltr">
+              <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/nodejs/nodejs-original.svg" alt="" width="26" height="26" loading="lazy">Node.js</li>
+              <li><img class="icon-mono" src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/express/express-original.svg" alt="" width="26" height="26" loading="lazy">Express.js</li>
+              <li><img class="icon-mono" src="https://cdn.jsdelivr.net/npm/simple-icons@13.0.0/icons/ejs.svg" alt="" width="26" height="26" loading="lazy">EJS</li>
+              <li><img class="icon-tile" src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/php/php-original.svg" alt="" width="26" height="26" loading="lazy">PHP</li>
+            </ul>
+          </div>
+          <div class="skill-card reveal">
+            <h3 class="mono" data-i18n="skills.db">// Bases de données</h3>
+            <ul dir="ltr">
+              <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/postgresql/postgresql-original.svg" alt="" width="26" height="26" loading="lazy">PostgreSQL</li>
+              <li><img class="icon-tile" src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/mysql/mysql-original.svg" alt="" width="26" height="26" loading="lazy">MySQL</li>
+            </ul>
+          </div>
+          <div class="skill-card reveal">
+            <h3 class="mono" data-i18n="skills.other">// Langages &amp; outils</h3>
+            <ul dir="ltr">
+              <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/c/c-original.svg" alt="" width="26" height="26" loading="lazy">C</li>
+              <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/java/java-original.svg" alt="" width="26" height="26" loading="lazy">Java</li>
+              <li><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/git/git-original.svg" alt="" width="26" height="26" loading="lazy">Git</li>
+              <li><img class="icon-mono" src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/github/github-original.svg" alt="" width="26" height="26" loading="lazy">GitHub</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="skills-next reveal">
+          <span class="mono" data-i18n="skills.nextLabel">En apprentissage →</span>
+          <span data-i18n="skills.next">Cybersécurité · Sécurité des API · Linux</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== PROJETS ===== -->
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-num mono">03</span>
+          <h2 data-i18n="projects.title">Projets</h2>
+        </div>
+        <p class="section-intro reveal" data-i18n="projects.intro">Clique sur un projet pour voir les captures et les détails.</p>
+
+        <div class="projects-grid">
+
+          <!-- carte mise en avant : le hackathon -->
+          <article class="project project--featured reveal" data-project="hackathon">
+            <button type="button" class="shot" data-open>
+              <span class="shot-bar" dir="ltr"><i></i><i></i><i></i><span>2MP Industry · CRM &amp; RH</span></span>
+              <span class="shot-img"><img src="img/hackathon-1.jpg" alt="" width="800" height="500" loading="lazy"></span>
+              <span class="shot-cta"><span data-i18n="projects.details">Voir les détails</span></span>
+            </button>
+            <div class="project-body">
+              <div class="project-top">
+                <span class="project-index mono">01</span>
+                <span class="project-badge is-award" data-i18n="p1.badge">🥈 2ᵉ place · Hackathon</span>
+              </div>
+              <h3 dir="ltr">2MP Industry</h3>
+              <p data-i18n="p1.desc"></p>
+              <ul class="tags mono" dir="ltr"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Chart.js</li></ul>
+              <div class="project-actions">
+                <button type="button" class="link-btn" data-open data-i18n="projects.more">Détails</button>
+                <a class="project-link" href="https://github.com/sidou25/Hackathon-2MP-Industry" target="_blank" rel="noopener" data-i18n="projects.github">Voir sur GitHub</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project reveal" data-project="pes">
+            <button type="button" class="shot" data-open>
+              <span class="shot-bar" dir="ltr"><i></i><i></i><i></i><span>PES 2026</span></span>
+              <span class="shot-img"><img src="img/pes-1.jpg" alt="" width="800" height="500" loading="lazy"></span>
+              <span class="shot-cta"><span data-i18n="projects.details">Voir les détails</span></span>
+            </button>
+            <div class="project-body">
+              <div class="project-top">
+                <span class="project-index mono">02</span>
+                <span class="project-badge" data-i18n="p2.badge">Site vitrine</span>
+              </div>
+              <h3 dir="ltr">PES 2026</h3>
+              <p data-i18n="p2.desc"></p>
+              <ul class="tags mono" dir="ltr"><li>HTML</li><li>CSS</li></ul>
+              <div class="project-actions">
+                <button type="button" class="link-btn" data-open data-i18n="projects.more">Détails</button>
+                <a class="project-link" href="https://github.com/sidou25/PES-2026" target="_blank" rel="noopener" data-i18n="projects.github">Voir sur GitHub</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project reveal" data-project="edt">
+            <button type="button" class="shot" data-open>
+              <span class="shot-bar" dir="ltr"><i></i><i></i><i></i><span>EDT.COM</span></span>
+              <span class="shot-img"><img src="img/edt-1.jpg" alt="" width="800" height="500" loading="lazy"></span>
+              <span class="shot-cta"><span data-i18n="projects.details">Voir les détails</span></span>
+            </button>
+            <div class="project-body">
+              <div class="project-top">
+                <span class="project-index mono">03</span>
+                <span class="project-badge" data-i18n="p3.badge">Outil</span>
+              </div>
+              <h3 dir="ltr">EDT.COM</h3>
+              <p data-i18n="p3.desc"></p>
+              <ul class="tags mono" dir="ltr"><li>HTML</li><li>CSS</li></ul>
+              <div class="project-actions">
+                <button type="button" class="link-btn" data-open data-i18n="projects.more">Détails</button>
+                <a class="project-link" href="https://github.com/sidou25/EDT.COM" target="_blank" rel="noopener" data-i18n="projects.github">Voir sur GitHub</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project reveal" data-project="gelato">
+            <button type="button" class="shot" data-open>
+              <span class="shot-bar" dir="ltr"><i></i><i></i><i></i><span>House of Gelato</span></span>
+              <span class="shot-img"><img src="img/gelato-1.jpg" alt="" width="800" height="500" loading="lazy"></span>
+              <span class="shot-cta"><span data-i18n="projects.details">Voir les détails</span></span>
+            </button>
+            <div class="project-body">
+              <div class="project-top">
+                <span class="project-index mono">04</span>
+                <span class="project-badge" data-i18n="p4.badge">Site client</span>
+              </div>
+              <h3 dir="ltr">House of Gelato</h3>
+              <p data-i18n="p4.desc"></p>
+              <ul class="tags mono" dir="ltr"><li>HTML</li><li>CSS</li><li>Firebase</li></ul>
+              <div class="project-actions">
+                <button type="button" class="link-btn" data-open data-i18n="projects.more">Détails</button>
+                <a class="project-link" href="https://github.com/sidou25/GELATO" target="_blank" rel="noopener" data-i18n="projects.github">Voir sur GitHub</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section class="section" id="contact">
+      <div class="container contact">
+        <div class="section-head reveal">
+          <span class="section-num mono">04</span>
+          <h2 data-i18n="contact.title">Contact</h2>
+        </div>
+
+        <p class="contact-title reveal" data-i18n="contact.lead"></p>
+
+        <div class="contact-links reveal">
+          <div class="contact-link contact-email">
+            <a href="mailto:sidahmed.dahmane@univ-alger.dz" class="contact-main">
+              <span data-i18n="contact.email">Email</span>
+              <strong dir="ltr">sidahmed.dahmane@univ-alger.dz</strong>
+            </a>
+            <button type="button" class="copy-btn" id="copyEmail" data-copy="sidahmed.dahmane@univ-alger.dz">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
+              <span data-i18n="contact.copy">Copier</span>
+            </button>
+          </div>
+          <a href="https://github.com/sidou25" target="_blank" rel="noopener" class="contact-link">
+            <span>GitHub</span>
+            <strong dir="ltr">github.com/sidou25</strong>
+          </a>
+          <!-- LinkedIn : remplace "#" par ton lien, mets ton nom à la place de "Bientôt",
+               enlève data-i18n="contact.soon" et la classe is-soon -->
+          <a href="#" class="contact-link is-soon" aria-disabled="true" tabindex="-1">
+            <span>LinkedIn</span>
+            <strong data-i18n="contact.soon">Bientôt</strong>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <span class="mono" dir="ltr">© <span id="year"></span> SIDOU</span>
+    <span data-i18n="footer.made">Fait avec HTML, CSS &amp; JS</span>
+  </footer>
+
+  <!-- bouton retour en haut -->
+  <a href="#accueil" class="to-top" id="toTop" data-i18n-aria="a11y.top" aria-label="Retour en haut">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+  </a>
+
+  <!-- petit message (ex. "Email copié") -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- ===== FENÊTRE DÉTAIL D'UN PROJET ===== -->
+  <dialog class="modal" id="modal" aria-labelledby="modalTitle">
+    <div class="modal-inner">
+      <button type="button" class="icon-btn modal-close" id="modalClose" data-i18n-aria="modal.close" aria-label="Fermer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+
+      <div class="modal-gallery">
+        <div class="modal-shot">
+          <span class="shot-bar" dir="ltr"><i></i><i></i><i></i><span id="modalUrl"></span></span>
+          <img id="modalImg" src="" alt="" width="800" height="500">
+        </div>
+        <div class="modal-thumbs" id="modalThumbs"></div>
+      </div>
+
+      <div class="modal-body">
+        <span class="project-badge" id="modalBadge"></span>
+        <h3 id="modalTitle" dir="ltr"></h3>
+        <p id="modalDesc"></p>
+        <h4 class="mono" data-i18n="modal.highlights">// Points clés</h4>
+        <ul class="modal-features" id="modalFeatures"></ul>
+        <ul class="tags mono" id="modalTags" dir="ltr"></ul>
+        <div class="modal-actions">
+          <a class="btn btn-primary" id="modalGithub" href="#" target="_blank" rel="noopener">
+            <span data-i18n="modal.code">Voir le code</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </a>
+          <button type="button" class="btn btn-ghost" id="modalNext">
+            <span data-i18n="modal.next">Projet suivant</span>
+            <svg class="flip-rtl" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="langue.js"></script>
+  <script src="hacker-data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
