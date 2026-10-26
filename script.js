@@ -283,6 +283,9 @@ function applyLang(lang) {
   document.querySelectorAll("[data-i18n-aria]").forEach((el) => {
     el.setAttribute("aria-label", dict[el.dataset.i18nAria]);
   });
+  document.querySelectorAll("[data-i18n-ph]").forEach((el) => {
+    el.setAttribute("placeholder", dict[el.dataset.i18nPh]);
+  });
 
   langButtons.forEach((b) => {
     const active = b.dataset.lang === lang;
@@ -659,3 +662,131 @@ document.getElementById("copyEmail").addEventListener("click", async (e) => {
   }
   showToast((TRANSLATIONS[root.lang] || TRANSLATIONS.fr)["contact.copied"]);
 });
+
+
+
+// ===== 13. FORMULAIRE DE CONTACT =====
+// Les messages sont envoyés par Web3Forms (gratuit) vers dahmanesidahmed60@gmail.com.
+// Colle ici la clé reçue par email sur https://web3forms.com (elle peut être publique, c'est prévu pour).
+const WEB3FORMS_KEY = "7766a8e3-5efc-4a32-9f93-62e2a2aee5aa";
+const CONTACT_EMAIL = "dahmanesidahmed60@gmail.com";
+const WHATSAPP_NUMBER = "213780447020"; // 0780447020 au format international (+213, sans le 0)
+
+const contactForm = (() => {
+  const form = document.getElementById("contactForm");
+  const submit = document.getElementById("cfSubmit");
+  const status = document.getElementById("cfStatus");
+  const t = (key) => (TRANSLATIONS[root.lang] || TRANSLATIONS.fr)[key];
+
+  // règles de chaque champ : la fonction renvoie la clé du message d'erreur, ou "" si c'est bon
+  const rules = {
+    cfName: (v) => (v.trim().length < 2 ? "form.errName" : ""),
+    cfEmail: (v) => (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? "form.errEmail" : ""),
+    cfPhone: (v) => {
+      const digits = v.replace(/[\s().-]/g, "");
+      return /^\+?\d{9,15}$/.test(digits) ? "" : "form.errPhone";
+    },
+    cfMessage: (v) => (v.trim().length < 10 ? "form.errMessage" : ""),
+  };
+
+  function check(id) {
+    const input = document.getElementById(id);
+    const errKey = rules[id](input.value);
+    input.closest(".field").classList.toggle("is-invalid", Boolean(errKey));
+    input.setAttribute("aria-invalid", Boolean(errKey));
+    document.getElementById(id + "Err").textContent = errKey ? t(errKey) : "";
+    return !errKey;
+  }
+
+  // on vérifie un champ quand on le quitte, puis à chaque frappe s'il était faux
+  Object.keys(rules).forEach((id) => {
+    const input = document.getElementById(id);
+    input.addEventListener("blur", () => { if (input.value) check(id); });
+    input.addEventListener("input", () => {
+      if (input.closest(".field").classList.contains("is-invalid")) check(id);
+    });
+  });
+
+  function setStatus(type, html) {
+    status.className = "form-status" + (type ? " is-" + type : "");
+    status.innerHTML = html;
+  }
+
+  function values() {
+    return {
+      name: form.elements.name.value.trim(),
+      email: form.elements.email.value.trim(),
+      whatsapp: form.elements.whatsapp.value.trim(),
+      type: form.elements.type.value,
+      message: form.elements.message.value.trim(),
+    };
+  }
+
+  // texte du message, utilisé pour l'email de secours
+  function summary(v) {
+    return `Nom : ${v.name}\nEmail : ${v.email}\nWhatsApp : ${v.whatsapp}\nType de projet : ${v.type}\n\n${v.message}`;
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (form.elements.botcheck.checked) return; // un robot a rempli le piège
+
+    const ok = Object.keys(rules).map(check).every(Boolean);
+    if (!ok) {
+      form.querySelector(".is-invalid input, .is-invalid textarea").focus();
+      return;
+    }
+
+    const v = values();
+
+    // clé pas encore configurée : on ouvre l'application email du visiteur avec le message déjà écrit
+    if (!WEB3FORMS_KEY) {
+      const subject = encodeURIComponent(`Portfolio — ${v.type} — ${v.name}`);
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${encodeURIComponent(summary(v))}`;
+      setStatus("success", t("form.mailto"));
+      return;
+    }
+
+    submit.classList.add("is-loading");
+    setStatus("", "");
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `Portfolio — ${v.type} — ${v.name}`,
+          from_name: "Portfolio SIDOU",
+          name: v.name,
+          email: v.email, // tu pourras répondre directement à cette adresse
+          whatsapp: v.whatsapp,
+          type_de_projet: v.type,
+          message: v.message,
+          langue: root.lang,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) throw new Error(data.message || res.status);
+
+      form.reset();
+      setStatus("success", t("form.success"));
+    } catch (err) {
+      // problème réseau ou service : on propose WhatsApp et l'email pour ne pas perdre le client
+      const wa = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(summary(v))}`;
+      setStatus("error", t("form.error")
+        .replace("{wa}", wa)
+        .replace("{mail}", `mailto:${CONTACT_EMAIL}?body=${encodeURIComponent(summary(v))}`));
+    } finally {
+      submit.classList.remove("is-loading");
+    }
+  });
+
+  // messages d'erreur et lien WhatsApp dans la langue choisie
+  langListeners.push(() => {
+    Object.keys(rules).forEach((id) => {
+      if (document.getElementById(id).closest(".field").classList.contains("is-invalid")) check(id);
+    });
+    document.getElementById("waLink").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t("form.waHello"))}`;
+  });
+  langListeners.at(-1)();
+})();

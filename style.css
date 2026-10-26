@@ -1339,6 +1339,174 @@ body.is-ready .hero-bottom { opacity: 1; transform: none; }
   stroke-linejoin: round;
 }
 
+/* ===== FORMULAIRE DE CONTACT ===== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+/* à côté du formulaire, les cartes sont empilées */
+.contact-grid .contact-links { grid-template-columns: 1fr; gap: 14px; }
+.contact-grid .contact-link { padding: 20px 22px; }
+
+.contact-form {
+  display: grid;
+  gap: 16px;
+  padding: 28px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--card-shadow);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: 16px;
+}
+
+.field { display: grid; gap: 7px; min-width: 0; }
+
+.field label {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cyan);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-2);
+  color: var(--text);
+  font: inherit;
+  font-size: 16px; /* 16px : évite le zoom automatique sur iPhone */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.field textarea { resize: vertical; min-height: 130px; line-height: 1.5; }
+.field ::placeholder { color: var(--muted); opacity: 0.7; }
+:root[dir="rtl"] .field input[dir="ltr"] { text-align: right; }
+
+.field select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-inline-end: 40px;
+  background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-size: 6px 6px, 6px 6px;
+  background-position: calc(100% - 20px) 21px, calc(100% - 14px) 21px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+:root[dir="rtl"] .field select { background-position: 14px 21px, 20px 21px; }
+
+.field input:hover,
+.field select:hover,
+.field textarea:hover { border-color: rgba(0, 229, 255, 0.35); }
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.15);
+}
+
+/* champ mal rempli */
+.field.is-invalid input,
+.field.is-invalid textarea { border-color: #f05252; box-shadow: 0 0 0 3px rgba(240, 82, 82, 0.12); }
+
+.field-error {
+  min-height: 0;
+  font-size: 13px;
+  color: #f05252;
+}
+
+.field-error:empty { display: none; }
+
+/* piège à robots : caché aux humains */
+/* (pas de "left: -9999px" : en arabe, la page s'élargirait vers la gauche) */
+.hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.form-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 18px;
+  margin-top: 4px;
+}
+
+.form-note { font-size: 13px; color: var(--muted); }
+
+/* bouton pendant l'envoi : petit cercle qui tourne */
+.btn.is-loading { pointer-events: none; opacity: 0.85; }
+.btn.is-loading svg { display: none; }
+.btn.is-loading::after {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.form-status {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-status:empty { display: none; }
+
+.form-status.is-success,
+.form-status.is-error {
+  padding: 14px 16px;
+  border-radius: 12px;
+}
+
+.form-status.is-success {
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.form-status.is-error {
+  color: #f05252;
+  background: rgba(240, 82, 82, 0.08);
+  border: 1px solid rgba(240, 82, 82, 0.3);
+}
+
+:root[data-theme="light"] .form-status.is-success { color: #15803d; }
+:root[data-theme="light"] .form-status.is-error,
+:root[data-theme="light"] .field-error { color: #c81e1e; }
+
+.form-status a { text-decoration: underline; }
+
+/* carte WhatsApp : vert WhatsApp */
+.contact-whatsapp span { color: #25d366; }
+.contact-whatsapp:hover { border-color: #25d366; }
+:root[data-theme="light"] .contact-whatsapp span { color: #128c4b; }
+
 /* ===== FOOTER ===== */
 .footer {
   display: flex;
@@ -1382,6 +1550,8 @@ body.is-ready .hero-bottom { opacity: 1; transform: none; }
   .about-grid { grid-template-columns: 1fr; }
   .skills-grid { grid-template-columns: repeat(2, 1fr); }
   .contact-links { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .contact-grid .contact-links { grid-template-columns: 1fr 1fr; }
   .project--featured { grid-template-columns: 1fr; }
   .project--featured .shot { border-inline-end: none; border-bottom: 1px solid var(--border); }
   .project--featured .shot-img { aspect-ratio: 16 / 10; height: auto; min-height: 0; }
@@ -1462,6 +1632,10 @@ body.is-ready .hero-bottom { opacity: 1; transform: none; }
   .project--featured h3 { font-size: 24px; }
   .contact-title { margin-bottom: 32px; }
   .contact-link { padding: 20px; }
+  .contact-form { padding: 20px; }
+  .form-row { grid-template-columns: 1fr; }
+  .contact-grid .contact-links { grid-template-columns: 1fr; }
+  .form-footer .btn { width: 100%; }
   .footer { padding: 24px 16px calc(24px + env(safe-area-inset-bottom)); flex-direction: column; }
   .to-top { right: 16px; width: 44px; height: 44px; }
   :root[dir="rtl"] .to-top { left: 16px; }

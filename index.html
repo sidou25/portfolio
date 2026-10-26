@@ -349,7 +349,66 @@
 
         <p class="contact-title reveal" data-i18n="contact.lead"></p>
 
-        <div class="contact-links reveal">
+        <div class="contact-grid">
+
+          <!-- formulaire : le message arrive dans ta boîte Gmail (service Web3Forms) -->
+          <form class="contact-form reveal" id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="field">
+                <label for="cfName" data-i18n="form.name">Nom complet</label>
+                <input id="cfName" name="name" type="text" autocomplete="name" maxlength="80" required
+                       data-i18n-ph="form.namePh" placeholder="Ex : Amine Benali">
+                <p class="field-error" id="cfNameErr" aria-live="polite"></p>
+              </div>
+              <div class="field">
+                <label for="cfEmail" data-i18n="form.email">Email</label>
+                <input id="cfEmail" name="email" type="email" autocomplete="email" maxlength="120" required dir="ltr"
+                       placeholder="nom@gmail.com">
+                <p class="field-error" id="cfEmailErr" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="field">
+                <label for="cfPhone" data-i18n="form.phone">WhatsApp</label>
+                <input id="cfPhone" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" required dir="ltr"
+                       placeholder="+213 6 12 34 56 78">
+                <p class="field-error" id="cfPhoneErr" aria-live="polite"></p>
+              </div>
+              <div class="field">
+                <label for="cfType" data-i18n="form.type">Type de projet</label>
+                <select id="cfType" name="type">
+                  <option value="Site vitrine" data-i18n="form.type1">Site vitrine</option>
+                  <option value="Application web" data-i18n="form.type2">Application web</option>
+                  <option value="Back-end / API" data-i18n="form.type3">Back-end / API</option>
+                  <option value="Stage" data-i18n="form.type4">Stage</option>
+                  <option value="Autre" data-i18n="form.type5">Autre</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="cfMessage" data-i18n="form.message">Ton projet</label>
+              <textarea id="cfMessage" name="message" rows="5" maxlength="2000" required
+                        data-i18n-ph="form.messagePh" placeholder="Décris ton idée, tes besoins, ton délai…"></textarea>
+              <p class="field-error" id="cfMessageErr" aria-live="polite"></p>
+            </div>
+
+            <!-- piège à robots : invisible pour les humains -->
+            <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <div class="form-footer">
+              <button type="submit" class="btn btn-primary" id="cfSubmit">
+                <span class="btn-label" data-i18n="form.send">Envoyer le message</span>
+                <svg class="flip-rtl" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+              <p class="form-note" data-i18n="form.note">Je te réponds sous 24 h, par email ou sur WhatsApp.</p>
+            </div>
+
+            <p class="form-status" id="cfStatus" role="status" aria-live="polite"></p>
+          </form>
+
+          <div class="contact-links reveal">
           <div class="contact-link contact-email">
             <a href="mailto:sidahmed.dahmane@univ-alger.dz" class="contact-main">
               <span data-i18n="contact.email">Email</span>
@@ -360,6 +419,10 @@
               <span data-i18n="contact.copy">Copier</span>
             </button>
           </div>
+          <a href="https://wa.me/213780447020" target="_blank" rel="noopener" class="contact-link contact-whatsapp" id="waLink">
+            <span>WhatsApp</span>
+            <strong dir="ltr">+213 780 44 70 20</strong>
+          </a>
           <a href="https://github.com/sidou25" target="_blank" rel="noopener" class="contact-link">
             <span>GitHub</span>
             <strong dir="ltr">github.com/sidou25</strong>
@@ -370,6 +433,7 @@
             <span>LinkedIn</span>
             <strong data-i18n="contact.soon">Bientôt</strong>
           </a>
+          </div>
         </div>
       </div>
     </section>
