@@ -501,6 +501,7 @@ body.is-ready .hero-bottom { opacity: 1; transform: none; }
 }
 
 .btn:active { transform: scale(0.97); }
+.btn[hidden] { display: none; }
 
 .scroll-hint {
   position: absolute;
@@ -1012,6 +1013,34 @@ body.is-ready .hero-bottom { opacity: 1; transform: none; }
 }
 
 .project p strong { color: var(--text); font-weight: 700; }
+
+/* badge "en ligne" : petit point vert qui clignote */
+.project-badge.is-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.08);
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+:root[data-theme="light"] .project-badge.is-live { color: #15803d; }
+
+.project-badge.is-live::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+  animation: blink 1.6s ease-in-out infinite;
+}
+
+.project-links {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
 
 .tags {
   display: flex;

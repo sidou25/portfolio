@@ -439,6 +439,15 @@ const PROJECTS = {
     tags: ["HTML", "CSS", "JavaScript", "Chart.js", "localStorage"],
     badge: "p1.badge",
   },
+  habit: {
+    title: "Habit Tracker",
+    url: "habit-tracker-gilt-nu.vercel.app",
+    images: ["img/habit-1.jpg", "img/habit-2.jpg"],
+    repo: "https://github.com/sidou25/habit-tracker",
+    live: "https://habit-tracker-gilt-nu.vercel.app",
+    tags: ["Node.js", "Express", "PostgreSQL", "bcrypt", "Vercel", "Neon"],
+    badge: "p5.badge",
+  },
   pes: {
     title: "PES 2026",
     url: "PES 2026",
@@ -500,10 +509,15 @@ const projectModal = (() => {
     const badge = document.getElementById("modalBadge");
     badge.textContent = d[p.badge];
     badge.classList.toggle("is-award", key === "hackathon");
+    badge.classList.toggle("is-live", Boolean(p.live));
     document.getElementById("modalDesc").textContent = info.desc;
     document.getElementById("modalFeatures").innerHTML = info.features.map((f) => `<li>${f}</li>`).join("");
     document.getElementById("modalTags").innerHTML = p.tags.map((t) => `<li>${t}</li>`).join("");
     document.getElementById("modalGithub").href = p.repo;
+    // bouton "Voir le site" seulement si le projet est en ligne
+    const live = document.getElementById("modalLive");
+    live.hidden = !p.live;
+    if (p.live) live.href = p.live;
 
     thumbs.innerHTML = p.images
       .map((src, j) => `<button type="button" aria-label="${d["modal.shot"]} ${j + 1}"><img src="${src}" alt=""></button>`)
