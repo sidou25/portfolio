@@ -434,10 +434,19 @@ document.querySelectorAll(".project").forEach((card) => {
 // ===== 9. FENÊTRE DÉTAIL D'UN PROJET =====
 // infos qui ne changent pas avec la langue : captures, lien GitHub, technologies
 const PROJECTS = {
+  brother: {
+    title: "BROTHER",
+    url: "mini-restaurant-chi.vercel.app",
+    images: ["img/brother-1.jpg", "img/brother-2.jpg", "img/brother-3.jpg"],
+    repo: "https://github.com/sidou25/mini-restaurant",
+    live: "https://mini-restaurant-chi.vercel.app",
+    tags: ["Node.js", "Express", "PostgreSQL", "Sessions", "scrypt", "PWA", "Vercel"],
+    badge: "p6.badge",
+  },
   hackathon: {
     title: "2MP Industry",
     url: "2MP Industry · CRM & RH",
-    images: ["img/hackathon-1.jpg", "img/hackathon-2.jpg"],
+    images: ["img/hackathon-1.jpg", "img/hackathon-2.jpg", "img/hackathon-3.jpg", "img/hackathon-4.jpg", "img/hackathon-5.jpg", "img/hackathon-6.jpg"],
     repo: "https://github.com/sidou25/Hackathon-2MP-Industry",
     tags: ["HTML", "CSS", "JavaScript", "Chart.js", "localStorage"],
     badge: "p1.badge",
@@ -445,11 +454,20 @@ const PROJECTS = {
   habit: {
     title: "Habit Tracker",
     url: "habit-tracker-gilt-nu.vercel.app",
-    images: ["img/habit-1.jpg", "img/habit-2.jpg"],
+    images: ["img/habit-1.jpg", "img/habit-2.jpg", "img/habit-3.jpg"],
     repo: "https://github.com/sidou25/habit-tracker",
     live: "https://habit-tracker-gilt-nu.vercel.app",
     tags: ["Node.js", "Express", "PostgreSQL", "bcrypt", "Vercel", "Neon"],
     badge: "p5.badge",
+  },
+  gelato: {
+    title: "House of Gelato",
+    url: "gelato-ten.vercel.app",
+    images: ["img/gelato-1.jpg", "img/gelato-2.jpg", "img/gelato-3.jpg", "img/gelato-4.jpg", "img/gelato-5.jpg"],
+    repo: "https://github.com/sidou25/GELATO",
+    live: "https://gelato-ten.vercel.app",
+    tags: ["HTML", "CSS", "JavaScript", "Vercel"],
+    badge: "p4.badge",
   },
   pes: {
     title: "PES 2026",
@@ -466,14 +484,6 @@ const PROJECTS = {
     repo: "https://github.com/sidou25/EDT.COM",
     tags: ["HTML", "CSS", "YouTube"],
     badge: "p3.badge",
-  },
-  gelato: {
-    title: "House of Gelato",
-    url: "House of Gelato",
-    images: ["img/gelato-1.jpg", "img/gelato-2.jpg"],
-    repo: "https://github.com/sidou25/GELATO",
-    tags: ["HTML", "CSS", "Firebase"],
-    badge: "p4.badge",
   },
 };
 

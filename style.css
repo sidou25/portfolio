@@ -893,7 +893,7 @@ body.is-ready .hero-bottom { opacity: 1; transform: none; }
 
 .shot-img {
   display: block;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 2 / 1;
   overflow: hidden;
 }
 
@@ -946,6 +946,8 @@ body.is-ready .hero-bottom { opacity: 1; transform: none; }
 }
 
 .project--featured .shot { border-bottom: none; border-inline-end: 1px solid var(--border); }
+.project--reverse { grid-template-columns: 1fr 1.25fr; }
+.project--reverse .shot { order: 2; border-inline-end: none; border-inline-start: 1px solid var(--border); }
 .project--featured .shot-img { aspect-ratio: auto; height: calc(100% - 37px); min-height: 300px; }
 .project--featured .shot-img img { object-position: left top; }
 .project--featured .project-body { padding: 32px; justify-content: center; }
@@ -1170,9 +1172,6 @@ body.is-ready .hero-bottom { opacity: 1; transform: none; }
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  object-position: top;
   transition: opacity 0.25s ease;
 }
 
@@ -1180,6 +1179,7 @@ body.is-ready .hero-bottom { opacity: 1; transform: none; }
 
 .modal-thumbs {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-top: 14px;
 }
@@ -1196,7 +1196,7 @@ body.is-ready .hero-bottom { opacity: 1; transform: none; }
   transition: opacity 0.2s ease, border-color 0.2s ease;
 }
 
-.modal-thumbs button img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+.modal-thumbs button img { display: block; width: 100%; aspect-ratio: 2 / 1; object-fit: cover; object-position: left top; }
 .modal-thumbs button:hover { opacity: 0.85; }
 .modal-thumbs button[aria-pressed="true"] { opacity: 1; border-color: var(--cyan); }
 
@@ -1553,8 +1553,9 @@ body.is-ready .hero-bottom { opacity: 1; transform: none; }
   .contact-grid { grid-template-columns: 1fr; }
   .contact-grid .contact-links { grid-template-columns: 1fr 1fr; }
   .project--featured { grid-template-columns: 1fr; }
-  .project--featured .shot { border-inline-end: none; border-bottom: 1px solid var(--border); }
-  .project--featured .shot-img { aspect-ratio: 16 / 10; height: auto; min-height: 0; }
+  .project--featured .shot { border-inline-end: none; border-inline-start: none; border-bottom: 1px solid var(--border); }
+  .project--reverse .shot { order: 0; }
+  .project--featured .shot-img { aspect-ratio: 2 / 1; height: auto; min-height: 0; }
   .project--featured .project-body { padding: 24px 26px 22px; }
   .modal-inner { grid-template-columns: 1fr; }
   .modal-gallery { position: static; background: var(--bg-2); border-bottom: 1px solid var(--border); }
